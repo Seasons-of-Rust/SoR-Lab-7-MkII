@@ -1,6 +1,6 @@
 use rand::Rng;
 
-use super::{Bot, Dilemma};
+use super::{Bot, Dilemma, Turn};
 
 #[derive(Debug, Default)]
 pub struct AlwaysBetray {}
@@ -9,8 +9,9 @@ impl Bot for AlwaysBetray {
     fn new() -> Self {
         AlwaysBetray {}
     }
-    
-    fn turn(&self) -> Dilemma {
+
+    /// This strategy will always betray the other player
+    fn turn(&self, _: &Vec<Turn>) -> Dilemma {
         Dilemma::Betray
     }
 }

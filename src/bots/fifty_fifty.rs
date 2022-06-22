@@ -1,6 +1,6 @@
 use rand::Rng;
 
-use super::{Bot, Dilemma};
+use super::{Bot, Dilemma, Turn};
 
 #[derive(Debug, Default)]
 pub struct FiftyFifty {}
@@ -9,8 +9,8 @@ impl Bot for FiftyFifty {
     fn new() -> Self {
         FiftyFifty {}
     }
-    
-    fn turn(&self) -> Dilemma {
+
+    fn turn(&self, _: &Vec<Turn>) -> Dilemma {
         // Randomly choose between silence and betrayal
         let mut rng = rand::thread_rng();
         match rng.gen_range(0..2) {

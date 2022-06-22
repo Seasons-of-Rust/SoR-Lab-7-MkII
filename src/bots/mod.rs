@@ -4,22 +4,29 @@ use strum_macros::EnumIter;
 
 use self::{
     always_betray::AlwaysBetray, always_silence::AlwaysSilence, angelonfira::AngelOnFira,
-    fifty_fifty::FiftyFifty,
+    fifty_fifty::FiftyFifty, grim_trigger::GrimTrigger,
 };
 
 mod always_betray;
 mod always_silence;
 mod angelonfira;
 mod fifty_fifty;
+mod grim_trigger;
 
 trait Bot {
     fn new() -> Self
     where
         Self: Sized;
 
-    fn turn(&self) -> Dilemma;
+    fn turn(&self, history: &Vec<Turn>) -> Dilemma;
 }
 
+struct Turn {
+    you: Dilemma,
+    other_bot: Dilemma,
+}
+
+#[derive(Copy, Clone)]
 pub enum Dilemma {
     Silence,
     Betray,
@@ -31,6 +38,7 @@ pub enum Bots {
     FiftyFifty,
     AlwaysSilence,
     AlwaysBetray,
+    GrimTrigger,
 }
 
 impl Bots {
@@ -40,6 +48,7 @@ impl Bots {
             Bots::FiftyFifty => Box::new(FiftyFifty::new()),
             Bots::AlwaysSilence => Box::new(AlwaysSilence::new()),
             Bots::AlwaysBetray => Box::new(AlwaysBetray::new()),
+            Bots::GrimTrigger => Box::new(GrimTrigger::new()),
         }
     }
 }
@@ -61,22 +70,36 @@ impl Simulation {
                     let mut bot1_score = 0;
                     let mut bot2_score = 0;
 
-                    // Simulate a fight between bot1 and bot2
+                    let mut bot_1_history = Vec::new();
+                    let mut bot_2_history = Vec::new();
+
+                    // Simulate 1000 fights between bot1 and bot2
                     for _ in 0..1_000 {
-                        let bot1_dilemma = bot_1.turn();
-                        let bot2_dilemma = bot_2.turn();
+                        let bot1_dilemma = bot_1.turn(&bot_1_history);
+                        let bot2_dilemma = bot_2.turn(&bot_2_history);
+
+                        // Add the histories
+                        bot_1_history.push(Turn {
+                            you: bot1_dilemma,
+                            other_bot: bot2_dilemma,
+                        });
+
+                        bot_2_history.push(Turn {
+                            you: bot2_dilemma,
+                            other_bot: bot1_dilemma,
+                        });
 
                         // Determine the outcome of the fight
                         match (bot1_dilemma, bot2_dilemma) {
                             (Dilemma::Silence, Dilemma::Silence) => {
-                                bot1_score += 1;
-                                bot2_score += 1;
+                                bot1_score += 3;
+                                bot2_score += 3;
                             }
                             (Dilemma::Silence, Dilemma::Betray) => {
-                                bot1_score += 1;
+                                bot2_score += 5;
                             }
                             (Dilemma::Betray, Dilemma::Silence) => {
-                                bot2_score += 1;
+                                bot1_score += 5;
                             }
                             (Dilemma::Betray, Dilemma::Betray) => {
                                 bot1_score += 1;
