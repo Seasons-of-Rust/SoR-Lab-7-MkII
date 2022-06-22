@@ -9,7 +9,7 @@ impl Bot for AngelOnFira {
     }
 
     /// This strategy is very nice. It will never betray you!
-    fn turn(&self, _: &Vec<Turn>) -> Dilemma {
+    fn turn(&mut self, _: &Vec<Turn>) -> Dilemma {
         Dilemma::Silence
     }
 }

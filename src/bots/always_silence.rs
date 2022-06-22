@@ -11,7 +11,7 @@ impl Bot for AlwaysSilence {
     }
 
     /// This strategy will always stay silent
-    fn turn(&self, _: &Vec<Turn>) -> Dilemma {
+    fn turn(&mut self, _: &Vec<Turn>) -> Dilemma {
         Dilemma::Silence
     }
 }

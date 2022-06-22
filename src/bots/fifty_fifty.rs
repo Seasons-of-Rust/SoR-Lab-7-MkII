@@ -10,7 +10,7 @@ impl Bot for FiftyFifty {
         FiftyFifty {}
     }
 
-    fn turn(&self, _: &Vec<Turn>) -> Dilemma {
+    fn turn(&mut self, _: &Vec<Turn>) -> Dilemma {
         // Randomly choose between silence and betrayal
         let mut rng = rand::thread_rng();
         match rng.gen_range(0..2) {

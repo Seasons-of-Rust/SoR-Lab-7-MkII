@@ -11,7 +11,7 @@ impl Bot for AlwaysBetray {
     }
 
     /// This strategy will always betray the other player
-    fn turn(&self, _: &Vec<Turn>) -> Dilemma {
+    fn turn(&mut self, _: &Vec<Turn>) -> Dilemma {
         Dilemma::Betray
     }
 }
