@@ -1,6 +1,5 @@
 use itertools::Itertools;
 use log::info;
-use std::io::Write;
 
 use crate::simulation::Simulation;
 
