@@ -1,5 +1,3 @@
-use rand::Rng;
-
 use super::{Bot, Dilemma, Turn};
 
 #[derive(Debug, Default)]
@@ -18,7 +16,7 @@ impl Bot for GrimTrigger {
     ///
     /// In this implementation, I used the memory variable to store Grim Trigger's state of mind.
     /// memory is true if Grim Trigger has been wronged, and false if it hasn't.
-    fn turn(&mut self, history: &Vec<Turn>) -> Dilemma {
+    fn turn(&mut self, history: &[Turn]) -> Dilemma {
         match history
             .iter()
             // If the other bot every betrayed, always betray

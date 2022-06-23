@@ -1,5 +1,3 @@
-use rand::Rng;
-
 use super::{Bot, Dilemma, Turn};
 
 #[derive(Debug, Default)]
@@ -24,7 +22,7 @@ impl Bot for Detective {
     /// If you cheat back, I'll act like [Tit for Tat].
     /// If you never cheta back, I'll act like [alwaysDefect],
     /// to exploit you. Elementary, my dear Watson.
-    fn turn(&mut self, history: &Vec<Turn>) -> Dilemma {
+    fn turn(&mut self, history: &[Turn]) -> Dilemma {
         let testing_schedule = vec![
             Dilemma::Silence,
             Dilemma::Betray,
@@ -36,21 +34,23 @@ impl Bot for Detective {
 
         let mut choice = None;
 
-        // We're still in that initial testing stage
-        if game_length < 4 {
-            choice = Some(testing_schedule[game_length]);
-        // Time to analyze the testing stage and decide what to do based on what the opponent did in that time!
-        } else if game_length == 4 {
-            if history
-                .iter()
-                .filter(|&x| matches!(x.other_bot, Dilemma::Betray))
-                .count()
-                == 0
-            {
-                self.should_i_exploit = true;
-            } else {
-                self.should_i_exploit = false;
+        match game_length.cmp(&4) {
+            // We're still in that initial testing stage
+            std::cmp::Ordering::Less => choice = Some(testing_schedule[game_length]),
+            // Time to analyze the testing stage and decide what to do based on what the opponent did in that time!
+            std::cmp::Ordering::Equal => {
+                if history
+                    .iter()
+                    .filter(|&x| matches!(x.other_bot, Dilemma::Betray))
+                    .count()
+                    == 0
+                {
+                    self.should_i_exploit = true;
+                } else {
+                    self.should_i_exploit = false;
+                }
             }
+            _ => (),
         }
 
         // Now we're in the game

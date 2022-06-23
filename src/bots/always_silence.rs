@@ -1,5 +1,3 @@
-use rand::Rng;
-
 use super::{Bot, Dilemma, Turn};
 
 #[derive(Debug, Default)]
@@ -11,7 +9,7 @@ impl Bot for AlwaysSilence {
     }
 
     /// This strategy will always stay silent
-    fn turn(&mut self, _: &Vec<Turn>) -> Dilemma {
+    fn turn(&mut self, _: &[Turn]) -> Dilemma {
         Dilemma::Silence
     }
 }

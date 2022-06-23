@@ -19,7 +19,7 @@ trait Bot {
     where
         Self: Sized;
 
-    fn turn(&mut self, history: &Vec<Turn>) -> Dilemma;
+    fn turn(&mut self, history: &[Turn]) -> Dilemma;
 }
 
 struct Turn {
@@ -116,7 +116,7 @@ impl Simulation {
 
                 // Add the score to the results
                 results
-                    .entry(bot_1_type.clone())
+                    .entry(bot_1_type)
                     .and_modify(|e| *e += bot_1_score)
                     .or_insert(bot_1_score);
 

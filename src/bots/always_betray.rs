@@ -1,5 +1,3 @@
-use rand::Rng;
-
 use super::{Bot, Dilemma, Turn};
 
 #[derive(Debug, Default)]
@@ -11,7 +9,7 @@ impl Bot for AlwaysBetray {
     }
 
     /// This strategy will always betray the other player
-    fn turn(&mut self, _: &Vec<Turn>) -> Dilemma {
+    fn turn(&mut self, _: &[Turn]) -> Dilemma {
         Dilemma::Betray
     }
 }

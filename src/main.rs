@@ -1,6 +1,4 @@
 mod bots;
-use std::collections::HashMap;
-use std::hash::Hash;
 
 use bots::Simulation;
 
