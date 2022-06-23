@@ -14,6 +14,10 @@ Dilemma is.
 
 [![](https://cdn.discordapp.com/attachments/971065259752321075/989569326753402920/t9Lo2fgxWHw-HD.jpg)](https://www.youtube.com/watch?v=t9Lo2fgxWHw)
 
+Also note, this lab is heavily inspired by carykh's [Prisoner's Dilemma
+Tournament](https://github.com/carykh/PrisonersDilemmaTournament), as well as
+the Multiagent Systems course at Carleton.
+
 ## Table of Contents
 
 - [Summer of Rust Lab 7 (MkII): The Prisoner's Dilemma](#summer-of-rust-lab-7-mkii-the-prisoners-dilemma)
